@@ -1,0 +1,18 @@
+void mergesort(lo l, lo r){
+    //arr and sor have same size and are globally defined, l=0,r=size-1
+    if(l>=r)return ;
+    lo k = (l+r)/2;
+    mergesort(l,k);
+    mergesort(k+1,r);
+    lo a=l,b=k+1,p=l;
+    while(a<=k && b<=r){
+        if(arr[a]<=arr[b]){
+            sor[p++]=arr[a++];
+        }else{
+            sor[p++]=arr[b++];
+        }
+    }
+    REP(a,k+1)sor[p++]=arr[i];
+    REP(b,r+1)sor[p++]=arr[i];
+    REP(l,r+1)arr[i]=sor[i];
+}
