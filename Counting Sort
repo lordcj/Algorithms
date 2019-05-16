@@ -1,4 +1,4 @@
-lo countingsort(lo n){
+void countingsort(lo n){
     // ve is a vector, arr is globally intitalised
     lo ma=-1;
     REP(0,n){
