@@ -1,0 +1,20 @@
+
+lo partition(lo l, lo r){
+    // arr is globally initialised
+    lo pivot=r,index=l;
+    REP(l,r){
+        if(arr[i]<=arr[pivot]){
+            swap(arr[i],arr[index]);
+            index++;
+        }
+    }
+    swap(arr[index], arr[pivot]);
+    return index;
+}
+
+void quicksort(lo l, lo r){
+    if(l>=r)return ;
+    lo p = partition(l, r);
+    quicksort(l,p-1);
+    quicksort(p+1,r);
+}
