@@ -1,0 +1,17 @@
+//par and rank are long long vectors
+void create(lo n){
+    REP(0,n){
+        par.pb(i);
+        rank.pb(0);
+    }
+}
+void merge(lo a, lo b){
+    if(rank[a]<rank[b])par[a]=b;
+    else par[b]=a;
+    if(rank[a]==rank[b])rank[a]++;
+}
+
+lo findSet(lo n){
+    if(par[n]==n)return n;
+    else return findSet(par[n]);
+}
