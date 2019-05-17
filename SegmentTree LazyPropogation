@@ -1,0 +1,88 @@
+void build(lo s, lo e, lo n){
+    //sum in range operation on segment tree
+    //arr and seg are globally defined
+    if(s > e)return ;
+    if(s==e){
+        seg[n]=arr[s];
+        return seg[n];
+    }
+    lo k = (s+e)/2;
+    build(s,k,2*n+1);
+    build(k+1,e,2*n+2);
+    seg[n]=seg[2*n+1]+seg[2*n+2];
+}
+
+lo query(lo s, lo e, lo l, lo r, lo n){
+    lo a,b;
+    if(r<s || l>e || s>e)return 0;
+    if(s<=l && r<=e)return seg[n];
+    lo k = (s+e)/2;
+    a = query(s,k,l,r,2*n+1);
+    b = query(k+1,e,l,r,2*n+2);
+    return a+b;
+}
+
+void update(lo s, lo e, lo ind, lo val, lo n){
+    if(s==e){
+        arr[ind]+=val;
+        return ;
+    }
+    lo k = (s+e)/2;
+    if(s<=ind && ind<=k)update(s,k,ind,val,2*n+1);
+    else update(k+1,r,ind,val,2*n+2);
+    arr[n]=arr[2*n+1]+arr[2*n+2];
+}
+
+void updateRange(lo s, lo e, lo l, lo r, lo val, lo n){
+    if(r<s || l>e || s>e)return ;
+    if(s==e){
+        arr[n]+=val;
+        return ;
+    }
+    lo k = (s+e)/2;
+    updateRange(s, k, l, r, val, 2*n+1);
+    updateRange(k+1,e,l,r,2*n+2);
+    arr[n]=arr[2*n+1]+arr[2*n+2];
+}
+
+void lazyUpdateRange(lo s, lo e, lo l, lo r, lo val, lo n){
+    //lazy is defined globally
+    if(lazy[n]!=0){
+        seg[n]+=(e-s+1)*lazy[n];
+        if(s!=e){
+            lazy[2*n+1]+=lazy[n];
+            lazy[2*n+2]+=lazy[n];
+        }
+        lazy[n]=0;
+    }
+    if(r<s || l>e || s>e)return ;
+    if(s<=l && r<=e){
+        seg[n]+=(e-s+1)*val;
+        if(s!=e){
+            lazy[2*n+1]+=val;
+            lazy[2*n+2]+=val;
+        }
+        return ;
+    }
+    lo k = (s+e)/2;
+    lazyUpdateRange(s,k,l,r,val,2*n+1);
+    lazyUpdateRange(k+1,e,l,r,val,2*n+2);
+    seg[n]=seg[2*n+1]+seg[2*n+2];
+}
+
+lo lazyQueryRange(lo s, lo e, lo l, lo r, lo n){
+    if(l>e || r<s || s>e)return 0;
+    if(lazy[n]!=0){
+        seg[n]+=(e-s+1)*lazy[n];
+        if(s!=e){
+            lazy[2*n+1]+=lazy[n];
+            lazy[2*n+2]+=lazy[n];
+        }
+        lazy[n]=0;
+    }
+    if(s<=l && r<=e)return seg[n];
+    lo k = (s+e)/2,a,b;
+    a = lazyQueryRange(s,k,l,r,2*n+1);
+    b = lazyQueryRange(k+1,e,l,r,2*n+2);
+    return a+b;
+}
