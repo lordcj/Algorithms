@@ -1,0 +1,15 @@
+//only for tree
+lo maxInd(lo node){
+    if(tr[node]==0){
+        lo x=0,y=1,n,j;
+        REP(0,tr[node].size()){
+            n = tr[node][i];
+            x += maxInd(n);
+            REPV(j,0,tr[n].size()){
+                y += maxInd(tr[n][j]);
+            }
+        }
+        tr[node]=max(x,y);
+    }
+    return tr[node];
+}
