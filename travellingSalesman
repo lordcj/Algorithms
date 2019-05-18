@@ -1,0 +1,52 @@
+//example distances
+lo di[4][4]={ 
+        { 0, 10, 15, 20 }, 
+        { 10, 0, 35, 25 }, 
+        { 15, 35, 0, 30 }, 
+        { 20, 25, 30, 0 } 
+    };
+
+vl ve;
+vector<vector<lo> > ma;
+
+void recur(lo mask, lo ind, lo n, lo size){
+    lo te;
+    REP(ind,n){
+        te = mask|(1<<i);
+        ma[size].pb(te);
+        recur(te, i+1, n, size+1);
+    }
+}
+
+void gen_mask(lo n){
+    REP(0,n+1)ma.pb(ve);
+    ma[1].pb(1);
+    recur(1, 1, n, 2);
+}
+
+lo travellingSalesman(lo n){
+    //di is a 2-D array defined globally
+    gen_mask(n);
+    lo dp[1<<n][n],j;
+    REP(0,(1<<n))REPV(j,0,n)dp[i][j]=INF;
+    REP(1,n)dp[1^(1<<i)][i]=di[0][i];
+    lo si,k,m,mask,n_mask;
+    REPV(si,3,n+1){
+        REPV(j,0,ma[si].size()){
+            mask = ma[si][j];
+            REPV(k,1,n){
+                if(mask & (1<<k) == 0)continue;
+                n_mask = mask ^ (1<<k);
+                REPV(m,1,n){
+                    if(m==k || n_mask & (1<<m) == 0)continue;
+                    dp[mask][k]=min(dp[mask][k],dp[n_mask][m]+di[m][k]);
+                }
+            }
+        }
+    }
+    lo ret=INF;
+    REP(1,n){
+        ret = min(ret,dp[(1<<n)-1][i]+di[i][0]);
+    }
+    return ret;
+}
