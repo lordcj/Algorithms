@@ -1,0 +1,15 @@
+lo optimalBinarySearchTree(lo n){
+    //cf contains cumulative frequency
+    REP(0,n)tree[i][i]=fre[i];
+    lo l,j,k;
+    REPV(l,2,n+1){
+        REP(0,n-l+1){
+            j = i+l-1;
+            tree[i][j]=INF;
+            REPV(k,i,j+1){
+                tree[i][j]=min(tree[i][j],((k==i)?0:tree[i][k-1])+((k==j)?0:tree[k+1][j])+cfre[j]-((i-1<0)?0:cfre[i-1]));
+            }
+        }
+    }
+    return tree[0][n-1];
+}
