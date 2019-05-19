@@ -1,0 +1,27 @@
+//level contains level of each node, ve contains children of every node, par contains parent level, tr contains parent of every node
+lo dfs(lo node,lo sq,lo lev){
+    level[node]=lev;
+    if(node==0)par[node]=0;
+    else{
+        if(lev%sq==0)par[node]=tr[node];
+        else par[node]=par[tr[node]];
+    }
+    REP(0,ve[node].size()){
+        if(visited[ve[node][i]]==1)continue;
+        visited[ve[node][i]]=1;
+        tr[ve[node][i]]=node;
+        dfs(ve[node][i],sq,lev+1);
+    }
+}
+
+lo lca(lo a, lo b){
+    while(a!=b){
+        if(level[a] < level[b])a=par[a];
+        else b=par[b];
+    }
+    while(a!=b){
+        if(level[a] < level[b])a=tr[a];
+        else b=tr[b];
+    }
+    return x;
+}
