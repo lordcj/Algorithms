@@ -1,0 +1,44 @@
+..returns count of connected components, ve contains graph, rev_ve contains transpose of graph
+lo dfs1(lo node){
+    lo x;
+    REP(0,ve[node].size()){
+        x = ve[node][i];
+        if(!visted[x]){
+            visted[x]=1;
+            dfs1(x);
+        }
+    }
+    st.push(x);
+}
+
+lo dfs2(lo node){
+    lo x;
+    REP(0,rev_ve[node].size()){
+        x = rev_ve[node][i];
+        if(!visited[x]){
+            visited[x]=1;
+            dfs2(x);
+        }
+    }
+}
+
+lo kosaraju(lo node){
+    REP(0,n){
+        if(!visted[i]){
+            visited[i]=1;
+            dfs1(i);
+            st.push(i);
+        }
+    }
+    lo ans=0,x;
+    while(!st.empty()){
+        x = st.top();
+        if(!visited2[x]){
+            ans++;
+            visited2[x]=1;
+            dfs2(x);
+        }
+        st.pop();
+    }
+    return ans;
+}
