@@ -1,0 +1,16 @@
+lo eulerTour(lo node, lo lev){
+    eu.pb(node);level.pb(lev);ind++;
+    REP(0,ve[node].size()){
+        if(!visited[ve[i]]){
+            visited[ve[i]]=1;
+            occ[ve[i]]=ind;
+            eulerTour(ve[i], lev+1);
+            eu.pb(node);leve.pb(lev);ind++;
+        }
+    }
+}
+
+lo lca(lo a, lo b){
+    if(occ[a]<occ[b])swap(a,b);
+    //apply RMQ using segment tree
+}
