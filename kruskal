@@ -1,0 +1,13 @@
+lo kruskal(lo n){
+    //edges are vector containing (d[u][v],(u,v))
+    sort(all(edges));
+    lo d,u,v,ans=0;
+    REP(0,edges.size()){
+        d = edges[i].X; u = edges[i].Y.X; v = edges[i].Y.Y;
+        if(findSet(u)!=findSet(v)){
+            ans+=d;
+            merge(u,v);
+        }
+    }
+    return ans;
+}
