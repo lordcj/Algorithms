@@ -1,0 +1,22 @@
+void dijsktra(lo n, lo node){
+    lo d,x;
+    ll temp;
+    set<ll> se;
+    REP(0,n)dis[i]=INF;
+    dis[n]=0;se.insert(mp(dis[n],n));
+    while(!se.empty()){
+        temp = *se.begin();
+        node = temp.Y; d = temp.X;
+        REP(0,ve[node].size()){
+            x=ve[node][i];
+            if(dis[x]>(dis[node]+di[node][x])){
+                if(se.find(mp(dis[x],x))!=se.end()){
+                    se.erase(mp(dis[x],x));
+                }
+                dis[x]=dis[node]+di[node][x];
+                se.insert(mp(dis[x],x));
+            }
+        }
+        se.erase(temp);
+    }
+}
