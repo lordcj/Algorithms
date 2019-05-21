@@ -1,0 +1,13 @@
+vl sor; // reverse of sor will contain the topologically sorted order
+
+void topologicalSorting(lo node){
+    lo x;
+    REP(0,ve[node].size()){
+        x = ve[node][i];
+        if(!visited[x]){
+            visited[x]=1;
+            topologicalSorting(x);
+        }
+    }
+    sor.pb(x);
+}
