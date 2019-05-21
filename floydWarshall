@@ -1,0 +1,10 @@
+lo floydWarshall(lo n){
+    lo k,j;
+    REPV(k,0,n){
+        REP(0,n){
+            REPV(j,0,n){
+                dis[i][j]=min(dis[i][j],dis[i][k]+dis[k][j]);
+            }
+        }
+    }
+}
