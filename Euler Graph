@@ -1,0 +1,7 @@
+bool isEulerian(lo node){
+    //the graph should be connected
+    lo odd=0;
+    REP(0,ve.size())if(ve[node].size() & 1)odd++;
+    if(odd == 0 || odd == 2)return TRUE;
+    else return FALSE;
+}
