@@ -1,0 +1,23 @@
+lo prims(lo n, lo node){
+    lo ans=0,d,x,y,di[n];
+    ll temp;
+    set<ll> se;
+    REP(0,n)di[i]=INF;
+    di[node]=0;
+    se.insert(mp(0,node));
+    while(!se.empty()){
+        temp = *se.begin();
+        d = temp.X; node = temp.Y;
+        ans+=d;
+        REP(0,ve[node].size()){
+            x = ve[node][i].X; y = ve[node][i].Y;
+            if(di[x]>y){
+                if(se.find(mp(di[x],x))!=se.end())se.erase(mp(di[x],x));
+                di[x]=y;
+                se.insert(mp(di[x],x));
+            }
+        }
+        se.erase(temp);
+    }
+    return ans;
+}
