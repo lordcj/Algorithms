@@ -1,0 +1,11 @@
+void bellmanFord(lo n, lo node){
+    lo u,v;
+    REP(0,n)dis[i]=INF;
+    dis[node]=0;
+    REP(0,n-1){
+        REP(0,ve.size()){
+            u = ve[i].X; v = ve[i].Y;
+            if(dis[u]!=INF)dis[v]= min(dis[v],dis[u]+di[u][v]);
+        }
+    }
+}
