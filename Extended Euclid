@@ -1,0 +1,12 @@
+ll extended(lo a, lo b){
+    ll temp;
+    if(a==0){
+        temp = mp(0,1);
+        return temp;
+    }
+    lo x1,y1;
+    temp = extended(b%a, a);
+    temp.Y = x1;
+    temp.X = y1 - (b/a)*x1;
+    return temp;
+}
