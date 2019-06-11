@@ -15,7 +15,7 @@ lo dfs(lo node,lo sq,lo lev){
 }
 
 lo lca(lo a, lo b){
-    while(a!=b){
+    while(par[a]!=par[b]){
         if(level[a] < level[b])a=par[a];
         else b=par[b];
     }
