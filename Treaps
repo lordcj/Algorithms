@@ -1,0 +1,50 @@
+typedef struct node{
+    lo val, priority, size;
+    struct node *left,*right;
+} node;
+
+typedef node* pnode;
+
+pnode init(lo val){
+    pnode ret = (pnode)malloc(sizeof(node));
+    ret->value = val; ret->size = 1; ret->priority = rand(); ret->left = ret->right = NULL;
+    return ret;
+}
+
+lo sz(pnode t){
+    return t?t->size:0;
+}
+
+void upd_sz(pnode t){
+    if(t) t->size = sz(t->l)+sz(t->r)+1;
+}
+
+void merge(pnode &t, pnode l, pnode r){
+    if(!l || !r)t=l?l:r;
+    if(l->priority > r->priority)merge(l->right, l->right, r),t=l;
+    else merge(r->left, l, r->left),t=r;
+    upd_sz(t);
+}
+
+void split(pnode t, pnode &l, pnode &r, lo key){
+    if(!t)l=r=NULL;
+    else if(t->val > key)split(t->left, l, t->left, key), r=t;
+    else split(t->right, t->right, r), l=t;
+    upd_sz(t); 
+}
+
+void insert(pnode &t, pnode it){
+    if(!t)t=it;
+    else if(it->priority > t->priority){
+        split(t, it->left, it->right, it->val), t=it;
+    }else insert(t->val <= it->val ? t->right : t->left, it);
+    upd_sz(t);
+}
+
+void erase(pnode &t, lo key){
+    if(!t)return;
+    if(t->val == key){
+        merge(t, t->left, t->right);
+    }else erase(t->val < key: t->right: t->left);
+    upd_sz(t);
+}
