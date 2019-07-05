@@ -1,0 +1,32 @@
+vector<vl> tree;
+lo ctree[100000];
+vl ve;
+lo sz[100000];
+
+void decomposeTree(lo node, lo p){
+    lo n = make_size(node,p);
+    lo centroid = dfs(node, p, n);
+    if(p==-1)p=centroid;
+    ctree[centroid]=p;
+
+    for(auto v : tree[node]){
+        tree[node].erase(v);
+        tree[v].erase(node);
+        decomposeTree(v, node);
+    }
+}
+
+void make_size(lo node, lo p){
+    sz[node]=1;
+    for(auto v : tree[node]){
+        if(v!=p)sz[node]+=make_size(v, node);
+    }
+    return sz[node];
+}
+
+lo dfs(lo node, lo p, lo n){
+    for(auto v : tree[node]){
+        if(v!=p && sz[v] > n/2)return dfs(v, node, n);
+    }
+    return node;
+}
