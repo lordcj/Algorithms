@@ -20,8 +20,8 @@ void recur(lo mask, lo ind, lo n, lo size){
 
 void gen_mask(lo n){
     REP(0,n+1)ma.pb(ve);
-    ma[1].pb(1);
-    recur(1, 1, n, 2);
+    //ma[1].pb(1);
+    recur(0, 1, n, 1);
 }
 
 lo travellingSalesman(lo n){
@@ -31,7 +31,7 @@ lo travellingSalesman(lo n){
     REP(0,(1<<n))REPV(j,0,n)dp[i][j]=INF;
     REP(1,n)dp[1^(1<<i)][i]=di[0][i];
     lo si,k,m,mask,n_mask;
-    REPV(si,3,n+1){
+    REPV(si,2,n+1){
         REPV(j,0,ma[si].size()){
             mask = ma[si][j];
             REPV(k,1,n){
